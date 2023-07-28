@@ -11,24 +11,25 @@ passo, o que pode melhorar significativamente o desempenho em operações com ve
 registrador SIMD float32x4_t em um endereço de memória contíguo. Ela é usada para armazenar 
 o resultado de operações SIMD de volta à memória principal.*/
 int main() {
-    float a[8] = {1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0};
-    float b[8] = {8.0, 7.0, 6.0, 5.0, 4.0, 3.0, 2.0, 1.0};
-    float result[8];
-
-    float32x4_t va = vld1q_f32(a);   // Carrega os primeiros 4 elementos de 'a' em um registrador NEON
-    float32x4_t va2 = vld1q_f32(a+4); //Carrega os últimos 4 elementos de 'a' em um registrador NEON
-    float32x4_t vb = vld1q_f32(b);//Carrega os primeiros 4 elementos de 'b' em um registrador NEON
-    float32x4_t vb2 = vld1q_f32(b+4);   // Carrega os ultimos 4 elementos de 'b' em um registrador NEON
+    //...
+    float a[4] = {1.0, 2.0, 3.0, 4.0};
+    float a2[4] = {5.0, 6.0, 7.0, 8.0};
+    float b[4] = {8.0, 7.0, 6.0, 5.0};
+    float b2[4] = {4.0, 3.0, 2.0, 1.0};
+    float32x4_t aNEON = vld1q_f32(a);
+    float32x4_t a2NEON = vld1q_f32(a2);
+    float32x4_t bNEON = vld1q_f32(b);
+    float32x4_t b2NEON = vld1q_f32(b2);
     
-    float32x4_t avresult = vaddq_f32(va, vb); // Soma os registradores NEON
-    float32x4_t bvresult = vaddq_f32(va2, vb2);
+    float32x4_t resultadoMetadeInicial = vaddq_f32(aNEON, bNEON);
+    float32x4_t resultadoMetadeFinal = vaddq_f32(a2NEON, b2NEON);
 
-    float32x4_t resultadoFinal = vaddq_f32(bvresult, avresult);
-    // Armazena o resultado no vetor 'result'
-    vst1q_f32(result, resultadoFinal);// devo colocar um & no result ?... (&result)
-
+    printf("Resultado: ");
     for (int i = 0; i < 4; ++i) {
-        printf("%f ", result[i]);
+        printf("%f ", resultadoMetadeInicial[i]);
+    }
+    for (int i = 0;i <4; i++){
+        printf("%f ", resultadoMetadeFinal[i]);
     }
     printf("\n");
 
