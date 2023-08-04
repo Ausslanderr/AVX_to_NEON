@@ -1,0 +1,3 @@
+Avx
+gcc -mavx -o nome_arquivo_exe nome_arquivo_c
+./nome_arquivo_exe
