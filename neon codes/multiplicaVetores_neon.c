@@ -1,7 +1,4 @@
-/*
- */
-
-#include <immintrin.h>
+#include <stdio.h>
 #include <arm_neon.h>
 
 int main(int argc, char const *argv[]) {
