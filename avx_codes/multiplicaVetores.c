@@ -1,7 +1,4 @@
-/**
- * Author: TripleZ<me@triplez.cn>
- * Date: 2018-08-21
- */
+
 
 #include <immintrin.h>
 #include <stdio.h>
